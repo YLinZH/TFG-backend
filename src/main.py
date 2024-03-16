@@ -46,5 +46,5 @@ async def generate_text(request: PromptRequest):
 @app.get("/testText")
 async def getTestText():
     api_key = os.getenv("API_KEY")
-    print("aaaaaaaaaav: ", api_key)
     return api_key
+    
