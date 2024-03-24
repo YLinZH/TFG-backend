@@ -29,7 +29,8 @@ def get_root():
 
 @app.post("/hello")
 async def get_root(request: PromptRequest):
-    return "Hello World " + request.prompt
+    openai.api_key = os.getenv("API_KEY")
+    return "Hello World " + openai.api_key
 
 @app.post("/simplify-text")
 async def simplify_text(request: PromptRequest):
