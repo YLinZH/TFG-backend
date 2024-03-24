@@ -27,24 +27,31 @@ class PromptRequest(BaseModel):
 def get_root():
     return "Hello World"
 
+@app.post("/hello")
+async def get_root(request: PromptRequest):
+    return "Hello World " + request.prompt
 
-@app.post("/generate-text")
-async def generate_text(request: PromptRequest):
-    openai.api_key = "YOUR_API_KEY"
-    response = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=request.prompt,
-        max_tokens=100,
+@app.post("/simplify-text")
+async def simplify_text(request: PromptRequest):
+    openai.api_key = os.getenv("API_KEY")
+    response = openai.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages = [
+            {
+                "role": "system",
+                "content": "Ets un assistent útil dissenyat per simplificar textos complexos. El teu objectiu és convertir el text d'entrada en un nou text amb paraules i estructures més senzilles, mantenint el significat original. Això ajudarà les persones amb dificultats cognitives a entendre millor el contingut. Proporciona únicament el text simplificat sense afegir cap introducció, comentari o paraules addicionals."
+            },
+            {
+                "role": "user",
+                "content": "Necessito ajuda per simplificar el següent text: " + request.prompt + ". Podries convertir-lo en un text més senzill i fàcil d'entendre? Utilitza paraules comunes i frases curtes."
+            }
+        ],
         n=1,
         stop=None,
-        temperature=0.7,
+        temperature=0.3,
     )
-    generated_text = response.choices[0].text.strip()
-    return {"text": generated_text}
 
+    # Extract the simplified text from the API response
+    simplified_text = response.choices[0].message.content.strip()
 
-@app.get("/testText")
-async def getTestText():
-    api_key = os.getenv("API_KEY")
-    return api_key
-    
+    return simplified_text
