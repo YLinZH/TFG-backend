@@ -29,6 +29,10 @@ def get_root():
 
 @app.post("/hello")
 async def get_root(request: PromptRequest):
+    return "Hello World " + request.prompt
+
+@app.get("/zzz")
+async def get_root(request: PromptRequest):
     openai.api_key = os.getenv("API_KEY")
     return "Hello World " + openai.api_key
 
