@@ -44,11 +44,11 @@ async def simplify_text(request: PromptRequest):
         messages = [
             {
                 "role": "system",
-                "content": "Ets un assistent útil dissenyat per simplificar textos complexos. El teu objectiu és convertir el text d'entrada en un nou text amb paraules i estructures més senzilles, mantenint el significat original i utilitzar l'idioma del text original. Això ajudarà les persones amb dificultats cognitives a entendre millor el contingut. Proporciona únicament el text simplificat sense afegir cap introducció, comentari o paraules addicionals."
+                "content": "Ets un assistent útil dissenyat per simplificar textos complexos. El teu objectiu és convertir el text d'entrada en un nou text amb paraules i estructures més senzilles, mantenint el significat original. Recorda que el text que proporciones ha de utilitzar la mateixa idioma que el text d'entrada. Això ajudarà les persones amb dificultats cognitives a entendre millor el contingut. Proporciona únicament el text simplificat sense afegir cap introducció, comentari o paraules addicionals."
             },
             {
                 "role": "user",
-                "content": "Necessito ajuda per simplificar el següent text: " + request.prompt + ". Podries convertir-lo en un text més senzill i fàcil d'entendre? Utilitza paraules comunes i frases curtes."
+                "content": "Necessito ajuda per simplificar el següent text: " + request.prompt + ".\n Podries convertir-lo en un text més senzill i fàcil d'entendre? Utilitza paraules comunes i frases curtes. Recorda que el text que proporciones ha de utilitzar la mateixa idioma que el text d'entrada."
             }
         ],
         n=1,
