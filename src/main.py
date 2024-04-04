@@ -22,6 +22,7 @@ app.add_middleware(
 
 class PromptRequest(BaseModel):
     prompt: str
+    language: str
 
 @app.get("/")
 def get_root():
@@ -44,11 +45,11 @@ async def simplify_text(request: PromptRequest):
         messages = [
             {
                 "role": "system",
-                "content": "Ets un assistent útil dissenyat per simplificar textos complexos. El teu objectiu és convertir el text d'entrada en un nou text amb paraules i estructures més senzilles on cada frase és curta, mantenint el significat original. Recorda que el text que proporciones ha de utilitzar la idioma espanyol. Això ajudarà les persones amb dificultats cognitives a entendre millor el contingut. Proporciona únicament el text simplificat sense afegir cap introducció, comentari o paraules addicionals."
+                "content": "Ets un assistent útil dissenyat per simplificar textos complexos. El teu objectiu és convertir el text d'entrada en un nou text amb paraules i estructures més senzilles on cada frase és curta, mantenint el significat original. Això ajudarà les persones amb dificultats cognitives a entendre millor el contingut. Proporciona únicament el text simplificat sense afegir cap introducció, comentari o paraules addicionals."
             },
             {
                 "role": "user",
-                "content": "Necessito ajuda per simplificar el següent text: " + request.prompt + ".\n Podries convertir-lo en un text més senzill i fàcil d'entendre? Utilitza paraules comunes i frases curtes."
+                "content": "Necessito ajuda per simplificar el següent text: \n" + request.prompt + "\n\n Podries convertir-lo en un text més senzill i fàcil d'entendre? Utilitza paraules comunes i frases curtes. El text que has generat ha de ser en " + request.language + "."
             }
         ],
         n=1,
