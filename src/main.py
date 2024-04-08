@@ -24,6 +24,18 @@ class PromptRequest(BaseModel):
     prompt: str
     language: str
 
+class PromptGenerateStory(BaseModel):
+    name: str
+    age: int
+    gender: str
+    situation: str
+    hobbies: str
+    challenges: str
+    outcomes: str
+    language: str
+
+
+
 @app.get("/")
 def get_root():
     return "Hello World"
@@ -61,3 +73,37 @@ async def simplify_text(request: PromptRequest):
     simplified_text = response.choices[0].message.content.strip()
 
     return simplified_text
+
+
+@app.post("/generate-story")
+async def generate_story(request: PromptGenerateStory):
+    openai.api_key = os.getenv("API_KEY")
+    response = openai.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages = [
+            {
+                "role": "system",
+                "content": "You are an AI assistant that specializes in creating personalized social stories to help individuals with autism or social communication challenges navigate various social situations. Your role is to provide clear, step-by-step guidance, tips, and positive reinforcement to help the user build confidence and skills in social interactions. When generating a social story, consider the specific situation, the individual's needs, potential challenges they may face, and their personal information. Use a supportive and encouraging tone throughout the story."
+            },
+            {
+                "role": "user",
+                "content": "Please generate a social story to help me navigate the following situation: " + request.situation + "." + 
+                "\nHere is some information about me to help you create a more personalized story:" +
+                "\nName: " + request.name +
+                "\nAge: " + str(request.age) +
+                "\nGender: " + request.gender +
+                "\nInterests and hobbies: " + request.hobbies +
+                "Specific challenges related to the situation: " + request.challenges +
+                "\nDesired outcome: " + request.outcomes +
+                "\nPlease include steps, and tips to guide me through the process and help me feel more confident in this social situation. Tailor the story to my age, interests, and specific challenges to make it more relatable and helpful for me. I want you generate the story using the languege: " + request.language + "."
+            }
+        ],
+        n=1,
+        stop=None,
+        temperature=0.7,
+    )
+
+    # Extract the simplified text from the API response
+    story = response.choices[0].message.content
+
+    return story
