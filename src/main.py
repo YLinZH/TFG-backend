@@ -70,7 +70,7 @@ async def simplify_text(request: PromptRequest):
     )
 
     # Extract the simplified text from the API response
-    simplified_text = response.choices[0].message.content.strip()
+    simplified_text = response.choices[0].message.content
 
     return simplified_text
 
