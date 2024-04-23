@@ -10,5 +10,15 @@
         "src": "/(.*)",
         "dest": "src/main.py"
       }
+    ],
+    "headers": [
+      {
+        "source": "/(.*)",
+        "headers": [
+          { "key": "Access-Control-Allow-Origin", "value": "https://tfg-frontend-zeta.vercel.app" },
+          { "key": "Access-Control-Allow-Methods", "value": "GET,POST,PUT,DELETE,OPTIONS" },
+          { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
+        ]
+      }
     ]
   }
