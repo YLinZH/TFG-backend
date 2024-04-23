@@ -102,8 +102,6 @@ async def generate_story(request: PromptGenerateStory):
         stop=None,
         temperature=0.7,
     )
-
-    # Extract the simplified text from the API response
     story = response.choices[0].message.content
 
     return story
