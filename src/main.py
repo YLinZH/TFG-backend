@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -78,9 +78,15 @@ async def simplify_text(request: PromptRequest):
 
     return simplified_text
 
+@app.options("/generate-story")
+async def generate_story_options(response: Response):
+    response.headers["Access-Control-Allow-Origin"] = "https://tfg-frontend-zeta.vercel.app"
+    response.headers["Access-Control-Allow-Methods"] = "POST"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    return {"message": "OK"}
 
 @app.post("/generate-story")
-async def generate_story(request: PromptGenerateStory):
+async def generate_story(request: PromptGenerateStory, response: Response):
     openai.api_key = os.getenv("API_KEY")
     response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -107,5 +113,8 @@ async def generate_story(request: PromptGenerateStory):
         temperature=0.7,
     )
     story = response.choices[0].message.content
-
+    
+    response.headers["Access-Control-Allow-Origin"] = "https://tfg-frontend-zeta.vercel.app"
+    response.headers["Access-Control-Allow-Methods"] = "POST"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type"
     return story
