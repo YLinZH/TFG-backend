@@ -93,7 +93,7 @@ async def generate_story(request: PromptGenerateStory):
                 "content": "Please generate a social story to help me navigate the following situation: " + request.situation + "." + 
                 "\nHere is some information about me to help you create a more personalized story:" +
                 "\nName: " + request.name +
-                "\nAge: " + request.age +
+                "\nAge: " + str(request.age) +
                 "\nGender: " + request.gender +
                 "\nInterests and hobbies: " + request.hobbies +
                 "Specific challenges related to the situation: " + request.challenges +
