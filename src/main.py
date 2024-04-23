@@ -78,13 +78,6 @@ async def simplify_text(request: PromptRequest):
 
     return simplified_text
 
-@app.options("/generate-story")
-async def generate_story_options(response: Response):
-    response.headers["Access-Control-Allow-Origin"] = "https://tfg-frontend-zeta.vercel.app"
-    response.headers["Access-Control-Allow-Methods"] = "POST"
-    response.headers["Access-Control-Allow-Headers"] = "Content-Type"
-    return {"message": "OK"}
-
 @app.post("/generate-story")
 async def generate_story(request: PromptGenerateStory):
     openai.api_key = os.getenv("API_KEY")
