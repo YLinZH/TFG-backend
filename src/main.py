@@ -90,8 +90,7 @@ async def generate_story(request: PromptGenerateStory):
             },
             {
                 "role": "user",
-                "content": "generate a small story"
-                # "content": "Please generate a social story to help me navigate the following situation: " + request.situation + "." + 
+                "content": "Generate a social story to help me navigate the following situation: " + request.situation + "." + 
                 # "\nHere is some information about me to help you create a more personalized story:" +
                 # "\nName: " + request.name +
                 # "\nAge: " + str(request.age) +
@@ -99,7 +98,7 @@ async def generate_story(request: PromptGenerateStory):
                 # "\nInterests and hobbies: " + request.hobbies +
                 # "Specific challenges related to the situation: " + request.challenges +
                 # "\nDesired outcome: " + request.outcomes +
-                # "\nPlease include steps, and tips to guide me through the process and help me feel more confident in this social situation. Tailor the story to my age, interests, and specific challenges to make it more relatable and helpful for me. I want you generate the story using the languege: " + request.language + "."
+                "\nPlease include steps, and tips to guide me through the process and help me feel more confident in this social situation. Tailor the story to my age, interests, and specific challenges to make it more relatable and helpful for me. I want you generate the story using the languege: " + request.language + "."
             }
         ],
 
