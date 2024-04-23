@@ -86,11 +86,11 @@ async def generate_story(request: PromptGenerateStory):
         messages = [
             {
                 "role": "system",
-                "content": "You are an AI assistant that specializes in creating personalized social stories to help individuals with autism or social communication challenges navigate various social situations. Your role is to provide clear, step-by-step guidance, tips, and positive reinforcement to help the user build confidence and skills in social interactions. When generating a social story, consider the specific situation, the individual's needs, potential challenges they may face, and their personal information. Use a supportive and encouraging tone throughout the story."
+                "content": "You are an AI assistant that specializes in creating personalized social stories to help individuals with autism or social communication challenges navigate various social situations. Use a supportive and encouraging tone throughout the story."
             },
             {
                 "role": "user",
-                "content": "Generate a social story to help me navigate the following situation: " + request.situation + "." + 
+                "content": "Generate a social story to help me navigate the following situation: " + request.situation + ". Please include steps, and tips to guide me through the process and help me feel more confident in this social situation. Tailor the story to my age, interests, and specific challenges to make it more relatable and helpful for me. I want you generate the story using the languege: " + request.language + "."
                 # "\nHere is some information about me to help you create a more personalized story:" +
                 # "\nName: " + request.name +
                 # "\nAge: " + str(request.age) +
@@ -98,7 +98,6 @@ async def generate_story(request: PromptGenerateStory):
                 # "\nInterests and hobbies: " + request.hobbies +
                 # "Specific challenges related to the situation: " + request.challenges +
                 # "\nDesired outcome: " + request.outcomes +
-                "\nPlease include steps, and tips to guide me through the process and help me feel more confident in this social situation. Tailor the story to my age, interests, and specific challenges to make it more relatable and helpful for me. I want you generate the story using the languege: " + request.language + "."
             }
         ],
 
