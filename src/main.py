@@ -86,7 +86,7 @@ async def generate_story_options(response: Response):
     return {"message": "OK"}
 
 @app.post("/generate-story")
-async def generate_story(request: PromptGenerateStory, response: Response):
+async def generate_story(request: PromptGenerateStory):
     openai.api_key = os.getenv("API_KEY")
     response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -113,8 +113,5 @@ async def generate_story(request: PromptGenerateStory, response: Response):
         temperature=0.7,
     )
     story = response.choices[0].message.content
-    
-    response.headers["Access-Control-Allow-Origin"] = "https://tfg-frontend-zeta.vercel.app"
-    response.headers["Access-Control-Allow-Methods"] = "POST"
-    response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+
     return story
